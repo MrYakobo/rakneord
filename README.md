@@ -34,7 +34,7 @@ As one can see,
 
 	räkneord.traditional();
 	console.log(räkneord(1997)) //nittonhundranittiosju
-	console.log(räkneord(1997)) //tvåtusensjutton
+	console.log(räkneord(2017)) //tjugohundrasjutton
 
 	räkneord.counting();
 	console.log(räkneord(1997)) //etttusenniohundranittiosju

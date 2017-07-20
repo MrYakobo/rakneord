@@ -5,7 +5,7 @@ module.swe = {
     hundred: 'hundra',
     thousand: 'tusen',
     undertwenty: ['', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv', 'tretton', 'fjorton', 'femton', 'sexton', 'sjutton', 'arton', 'nitton', 'tjugo'],
-    underten: ['', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio']
+    underten: ['', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
 }
 module.exports = function (input) {
     var count = {
@@ -25,7 +25,7 @@ module.exports = function (input) {
     //counting:        counting
 
     //2017: tvåtusensjutton
-    if (module.mode == 'counting' || module.mode == 'modern' || i > 10000) {
+    if (module.mode == 'counting' || i > 10000 || i >= 2000) {
         while (i >= 1000) {
             count.thousands++;
             i -= 1000;
@@ -44,7 +44,8 @@ module.exports = function (input) {
 
     if (module.mode == 'traditional') {
         return oldie(count);
-    } else if(module.mode == 'counting'){
+    }
+    if(module.mode == 'counting'){
         return counting(count);
     }
 
@@ -56,7 +57,10 @@ module.exports = function (input) {
 
 //nittonhundranittiosju; tjugohundrasjutton
 function oldie(count) {
-    return module.swe.undertwenty[count.hundreds] + 'hundra' + undertwenty(count);
+    var s = "";
+    if(count.hundreds > 0)
+        s += module.swe.undertwenty[count.hundreds] + 'hundra';
+    return s + undertwenty(count);
 }
 //etttusenniohundranittiosju; tvåtusensjutton
 function counting(count) {
