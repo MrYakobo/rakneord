@@ -58,6 +58,8 @@ module.exports = function (input) {
 //nittonhundranittiosju; tjugohundrasjutton
 function oldie(count) {
     var s = "";
+    if(count.thousands > 0)
+        s += module.swe.underten[count.thousands] + 'tusen'
     if(count.hundreds > 0)
         s += module.swe.undertwenty[count.hundreds] + 'hundra';
     return s + undertwenty(count);
