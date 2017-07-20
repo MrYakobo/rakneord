@@ -1,0 +1,10 @@
+{
+  "name": "rakneord",
+  "version": "1.0.0",
+  "main": "rakneord.js",
+  "decription": "A tool for speechifying numbers to Swedish",
+  "license": "MIT",
+  "scripts": {
+    "test": "node testRakneord.js"
+  }
+}
