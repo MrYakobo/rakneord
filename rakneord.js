@@ -1,12 +1,13 @@
-//Gör till en modul...typ
-module.mode = 'counting'
-module.swe = {
+
+var mode = 'counting'
+var swe = {
     tens: ['tio', 'tjugo', 'trettio', 'fyrtio', 'femtio', 'sextio', 'sjuttio', 'åttio', 'nittio'],
     hundred: 'hundra',
     thousand: 'tusen',
     undertwenty: ['', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv', 'tretton', 'fjorton', 'femton', 'sexton', 'sjutton', 'arton', 'nitton', 'tjugo'],
     underten: ['', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
 }
+
 module.exports = function (input) {
     var count = {
         thousands: 0,
@@ -20,11 +21,6 @@ module.exports = function (input) {
         return 'noll'
     }
 
-    //modern:          i < 2000 ? oldie : counting
-    //traditional:     oldie
-    //counting:        counting
-
-    //2017: tvåtusensjutton
     if (module.mode == 'counting' || i > 10000 || i >= 2000) {
         while (i >= 1000) {
             count.thousands++;
@@ -59,18 +55,18 @@ module.exports = function (input) {
 function oldie(count) {
     var s = "";
     if(count.thousands > 0)
-        s += module.swe.underten[count.thousands] + 'tusen'
+        s += swe.underten[count.thousands] + 'tusen'
     if(count.hundreds > 0)
-        s += module.swe.undertwenty[count.hundreds] + 'hundra';
+        s += swe.undertwenty[count.hundreds] + 'hundra';
     return s + undertwenty(count);
 }
 //etttusenniohundranittiosju; tvåtusensjutton
 function counting(count) {
     var s = "";
     if (count.thousands > 0)
-        s += module.swe.underten[count.thousands] + 'tusen'
+        s += swe.underten[count.thousands] + 'tusen'
     if (count.hundreds > 0)
-        s += module.swe.underten[count.hundreds] + 'hundra'
+        s += swe.underten[count.hundreds] + 'hundra'
     return s + undertwenty(count)
 }
 
@@ -79,24 +75,24 @@ function undertwenty(count) {
     var s = "";
     var c = count.underten + count.tens * 10
     if (c <= 20 && c > 0) {
-        s += module.swe.undertwenty[c];
+        s += swe.undertwenty[c];
     } else {
         if (count.tens > 0)
-            s += module.swe.tens[count.tens - 1]
+            s += swe.tens[count.tens - 1]
         if (count.underten > 0)
-            s += module.swe.underten[count.underten]
+            s += swe.underten[count.underten]
     }
     return s; 
 }
 
 module.exports.traditional = function () {
-    module.mode = 'traditional'
+    mode = 'traditional'
 }
 
 module.exports.modern = function () {
-    module.mode = 'modern'
+    mode = 'modern'
 }
 
 module.exports.counting = function () {
-    module.mode = 'counting'
+    mode = 'counting'
 }
