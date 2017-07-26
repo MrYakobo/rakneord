@@ -1,5 +1,3 @@
-
-var mode = 'counting'
 var swe = {
     tens: ['tio', 'tjugo', 'trettio', 'fyrtio', 'femtio', 'sextio', 'sjuttio', 'åttio', 'nittio'],
     hundred: 'hundra',
@@ -8,7 +6,7 @@ var swe = {
     underten: ['', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
 }
 
-module.exports = function (input) {
+module.exports = function (input, mode) {
     var count = {
         thousands: 0,
         hundreds: 0,
@@ -17,11 +15,12 @@ module.exports = function (input) {
     }
 
     var i = input;
+
     if (i === 0) {
         return 'noll'
     }
 
-    if (module.mode == 'counting' || i > 10000 || i >= 2000) {
+    if (mode == 'counting' || i > 10000 || i >= 2000) {
         while (i >= 1000) {
             count.thousands++;
             i -= 1000;
@@ -38,26 +37,26 @@ module.exports = function (input) {
 
     count.underten = i;
 
-    if (module.mode == 'traditional') {
+    if (mode == 'traditional') {
         return oldie(count);
     }
-    if(module.mode == 'counting'){
+    if (mode == 'counting') {
         return counting(count);
     }
 
-    //mode == 'modern'
-    if(input < 2000)
+    //here, mode is either modern or not defined
+    if (input < 2000) {
         return oldie(count);
+    }
     return counting(count);
 }
 
 //nittonhundranittiosju; tjugohundrasjutton
 function oldie(count) {
     var s = "";
-    if(count.thousands > 0)
-        s += swe.underten[count.thousands] + 'tusen'
-    if(count.hundreds > 0)
-        s += swe.undertwenty[count.hundreds] + 'hundra';
+    var hundreds = count.hundreds + count.thousands * 10;
+    if (hundreds > 0)
+        s += swe.undertwenty[hundreds] + 'hundra';
     return s + undertwenty(count);
 }
 //etttusenniohundranittiosju; tvåtusensjutton
@@ -82,17 +81,5 @@ function undertwenty(count) {
         if (count.underten > 0)
             s += swe.underten[count.underten]
     }
-    return s; 
-}
-
-module.exports.traditional = function () {
-    mode = 'traditional'
-}
-
-module.exports.modern = function () {
-    mode = 'modern'
-}
-
-module.exports.counting = function () {
-    mode = 'counting'
+    return s;
 }

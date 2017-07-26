@@ -1,16 +1,19 @@
 {
   "name": "rakneord",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "rakneord.js",
   "decription": "A tool for speechifying numbers to Swedish",
   "author": "Jakob Lindskog <jakob.lindskog@gmail.com> (http://github.com/MrYakobo)",
   "license": "MIT",
   "scripts": {
-    "test": "node testRakneord.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/MrYakobo/rakneord.git"
   },
-    "bugs": "https://github.com/MrYakobo/rakneord/issues"
+  "bugs": "https://github.com/MrYakobo/rakneord/issues",
+  "devDependencies": {
+    "mocha": "^3.4.2"
+  }
 }
